@@ -1,0 +1,15 @@
+{
+  "name": "collab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./esbuild.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.3.8",
+    "typescript": "^3.9.3"
+  }
+}
