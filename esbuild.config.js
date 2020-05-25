@@ -2,11 +2,12 @@ const { build } = require('esbuild')
 
 const options = {
   stdio: 'inherit',
-  entryPoints: ['./src/index.ts'],
-  outfile: './bundle.js',
+  entryPoints: ['./src/**/*'],
+  outDir: './dist',
+  target: 'es6',
   sourceMap: true,
-  minify: true,
-  bundle: true,
+  minify: false,
+  bundle: false,
 }
 
 build(options).catch(() => process.exit(1))

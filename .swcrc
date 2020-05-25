@@ -1,0 +1,15 @@
+{
+  "test": ".*.ts$",
+  "jsc": {
+    "target": "es2016",
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": true,
+      "dynamicImport": true
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}

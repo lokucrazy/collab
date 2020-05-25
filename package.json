@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node ./esbuild.config.js"
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "swc ./client/src -d ./client/dist/javascript",
+    "build:server": "cd ./server && go build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@swc/cli": "^0.1.24",
+    "@swc/core": "^1.1.47",
     "esbuild": "^0.3.8",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@types/node": "^14.0.5"
   }
 }
