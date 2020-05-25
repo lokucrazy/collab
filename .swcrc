@@ -8,8 +8,5 @@
       "decorators": true,
       "dynamicImport": true
     }
-  },
-  "module": {
-    "type": "commonjs"
   }
 }
