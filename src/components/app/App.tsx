@@ -1,9 +1,10 @@
+import React from 'react'
 import Container from 'react-bootstrap/container'
 import Row from 'react-bootstrap/row'
 import Col from 'react-bootstrap/col'
-import Root from '../components/Root'
+import Root from '../common/Root'
 
-export default function () {
+export default function App() {
   return (
     <Root>
       <div>
