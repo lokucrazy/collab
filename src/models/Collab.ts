@@ -1,4 +1,4 @@
-import { Schema, Document, model } from "mongoose";
+import { Schema, Document, model } from 'mongoose'
 
 export interface CollabDocument extends Document {
   name: string,
