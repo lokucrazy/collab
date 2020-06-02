@@ -1,21 +1,22 @@
 import { Schema, Document, model } from 'mongoose'
 
 export interface UserDocument extends Document {
-  name: string,
-  password: string,
-  collabs: Schema.Types.ObjectId[],
-  assignedCollabs: Schema.Types.ObjectId[],
-  createdOn: Date,
-  modifiedOn: Date,
+  username: string
+  name: string
+  password: string
+  collabs: Schema.Types.ObjectId[]
+  assignedCollabs: Schema.Types.ObjectId[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 const UserSchema =  new Schema({
   name: String,
   password: String,
-  collabs: [{ type: Schema.Types.ObjectId, ref: 'Collab' }],
-  assignedCollabs: [{ type: Schema.Types.ObjectId, ref: 'Collab' }],
-  createdOn: { type: Date, default: Date.now },
-  modifiedOn: Date,
+  collabs: { type: [{ type: Schema.Types.ObjectId, ref: 'Collab' }], default: [] },
+  assignedCollabs: { type: [{ type: Schema.Types.ObjectId, ref: 'Collab' }], default: [] },
+}, {
+  timestamps: true,
 })
 
 export default model<UserDocument>('User', UserSchema)

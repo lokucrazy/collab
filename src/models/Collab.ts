@@ -1,23 +1,27 @@
 import { Schema, Document, model } from 'mongoose'
 
 export interface CollabDocument extends Document {
-  name: string,
-  creator: Schema.Types.ObjectId,
-  description: string,
-  genres: string[],
-  parts: any[],
-  createdOn: Date,
-  modified: Date,
+  name: string
+  description: string
+  creator: Schema.Types.ObjectId
+  genres: string[]
+  parts: {
+    name: string
+    assignedUser: Schema.Types.ObjectId | null
+    completed: boolean
+  }[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 const CollabSchema = new Schema({
   name: String,
-  creator: { type: Schema.Types.ObjectId, ref: 'User' },
   description: String,
-  genres: [],
-  parts: [{ name: String, assignedUser: { type: Schema.Types.ObjectId, ref: 'User' }, completed: Boolean, }],
-  createdOn: { type: Date, default: Date.now },
-  modifiedOn: Date,
+  creator: { type: Schema.Types.ObjectId, ref: 'User' },
+  genres: { type: [], default: [] },
+  parts: { type: [{ name: String, assignedUser: { type: Schema.Types.ObjectId, ref: 'User', default: null }, completed: { type: Boolean, default: false } }], default: [] },
+}, {
+  timestamps: true,
 })
 
 export default model<CollabDocument>('Collab', CollabSchema)

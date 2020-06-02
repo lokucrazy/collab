@@ -1,8 +1,5 @@
 import mongoose from 'mongoose'
-import Collab from '../models/Collab'
-import User from '../models/User'
-
-import type { CollabDocument } from '../models/Collab'
+import { Response, Request } from 'express'
 
 async function connect(): Promise<void> {
   try {
@@ -13,54 +10,12 @@ async function connect(): Promise<void> {
   }
 }
 
-async function GetUser(id: string) {
+export default async function dbConnection(req: Request, res: Response, next: CallableFunction): Promise<void> { 
   try {
-    console.log('getting user...')
-    await connect()
-    const user = await User.findById(id).populate('collab').populate('assignedCollabs').exec()
-    await mongoose.connection.close()
-    return user
-  } catch(error) {
-    return Promise.reject(error)
-  }
-}
-
-async function GetCollab(id?: string): Promise<CollabDocument | CollabDocument[] | null> {
-  let collabs: CollabDocument | CollabDocument[] | null
-  try {
-    console.log('getting collab...')
-    await connect()
-    if (id) {
-      console.log(`finding collab by id ${id}`)
-      collabs = await Collab.findById(id).populate('creator').exec()
-      collabs && await User.populate(collabs.parts, { 'path': 'assignedUser' })
-      console.log(collabs)
-    } else {
-      console.log('finding all collabs')
-      collabs = await Collab.find().populate('creator').exec()
-    }
-    await mongoose.connection.close()
-    console.log('closing connection...')
-    return collabs
+    if (mongoose.connection.readyState === 0) await connect()
+    return next();
   } catch (error) {
-    return Promise.reject(error)
+    console.error(error)
+    res.status(500).send()
   }
-}
-
-async function PutCollab(collabJSON: CollabDocument): Promise<CollabDocument> {
-  try {
-    console.log('putting collab...')
-    await connect()
-    const collab = new Collab(collabJSON)
-    const putCollab = await collab.save()
-    return putCollab
-  } catch (error) {
-    return Promise.reject(error)
-  }
-}
-
-export {
-  GetCollab,
-  GetUser,
-  PutCollab
 }
